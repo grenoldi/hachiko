@@ -1,0 +1,291 @@
+//Primeiro movimento
+            if(message[0] == 'a');
+            else if(message[0] == 'b'){ //rotaciona pra direita
+                moveMotor(right, backward, 100);
+                moveMotor(left,  forward,  100);
+                delay_ms(50);
+                message[0] = 'a';
+            }
+            else if(message[0] == 'c'){ //rotaciona pra esquerda
+                moveMotor(right, forward, 100);
+                moveMotor(left,  backward,  100);
+                delay_ms(50);
+                message[0] = 'a';
+            }
+            else if(message[0] == 'd'){ //arco tras direita
+                moveMotor(right, backward, 60);
+                moveMotor(left,  backward,  90);
+                message[0] = 'a';
+            }
+            else if(message[0] == 'e'){ //arco tras esquerda
+                moveMotor(right, backward, 90);
+                moveMotor(left,  backward, 60);
+                message[0] = 'a';
+            }
+            else if(message[0] == 'f'){ //reto pra tras
+                moveMotor(right, backward, 80);
+                moveMotor(left,  backward, 90);
+                message[0] = 'a';
+            }
+            
+            //Primeiro ataque
+            if(message[1] == 'a');
+            else if(message[1] == 'b'){ //arco direita
+                moveMotor(right, forward,  80);
+                moveMotor(left,  forward, 100);
+                delay_ms(500);
+                message[1] = 'a';
+            }
+            
+            else if(message[1] == 'c'){ //arco esquerda
+                moveMotor(right, forward, 100);
+                moveMotor(left,  forward,  90);
+                delay_ms(500);
+                message[1] = 'a';
+            }
+            
+            //Sensor de linha
+            if(PORTCbits.RC3 == 0  //frontal direita
+            && PORTCbits.RC4 == 1  //frontal esquerda
+            && PORTEbits.RE1 == 1  //traseiro direita
+            && PORTEbits.RE2 == 1) //traseiro esquerda
+            {
+                moveMotor(right, backward, 100);
+                moveMotor(left, backward, 100);
+                __delay_ms(150);
+                stopMotors();
+                moveMotor(right, forward, 100);
+                moveMotor(left, backward, 100);
+                __delay_ms(100);
+            }
+            
+            else if(PORTCbits.RC3 == 1  //frontal direita
+                 && PORTCbits.RC4 == 0  //frontal esquerda
+                 && PORTEbits.RE1 == 1  //traseiro direita
+                 && PORTEbits.RE2 == 1) //traseiro esquerda
+            {
+                moveMotor(right, backward, 100);
+                moveMotor(left, backward, 100);
+                __delay_ms(150);
+                stopMotors();
+                moveMotor(right, backward, 100);
+                moveMotor(left, forward, 100);
+                __delay_ms(100);
+            }
+            
+            else if(PORTCbits.RC3 == 0  //frontal direita
+                 && PORTCbits.RC4 == 0  //frontal esquerda
+                 && PORTEbits.RE1 == 1  //traseiro direita
+                 && PORTEbits.RE2 == 1) //traseiro esquerda
+            {
+                moveMotor(right, backward, 100);
+                moveMotor(left, backward, 100);
+                __delay_ms(150);
+                stopMotors();
+                moveMotor(right, backward, 100);
+                moveMotor(left, forward, 100);
+                __delay_ms(100);
+            }
+            
+            else if(PORTCbits.RC3 == 1  //frontal direita
+                 && PORTCbits.RC4 == 1  //frontal esquerda
+                 && PORTEbits.RE1 == 0  //traseiro direita
+                 && PORTEbits.RE2 == 1) //traseiro esquerda
+            {
+                stopMotors();
+                moveMotor(right, forward, 100);
+                __delay_ms(50);
+                stopMotors();
+            }
+            
+            else if(PORTCbits.RC3 == 1  //frontal direita
+                 && PORTCbits.RC4 == 1  //frontal esquerda
+                 && PORTEbits.RE1 == 1  //traseiro direita
+                 && PORTEbits.RE2 == 0) //traseiro esquerda
+            {
+                stopMotors();
+                moveMotor(left, forward, 100);
+                __delay_ms(50);
+                stopMotors();
+            }
+            
+            else if(PORTCbits.RC3 == 1  //frontal direita
+                 && PORTCbits.RC4 == 1  //frontal esquerda
+                 && PORTEbits.RE1 == 0  //traseiro direita
+                 && PORTEbits.RE2 == 0) //traseiro esquerda
+            {
+                stopMotors();
+                moveMotor(left, forward, 100);
+                moveMotor(right, forward, 100);
+                __delay_ms(50);
+                stopMotors();
+            }
+            
+            else if(PORTCbits.RC3 == 0  //frontal direita
+                 && PORTCbits.RC4 == 1  //frontal esquerda
+                 && PORTEbits.RE1 == 0  //traseiro direita
+                 && PORTEbits.RE2 == 1) //traseiro esquerda
+            {
+                stopMotors();
+                moveMotor(right, forward, 100);
+                __delay_ms(100);
+                stopMotors();
+            }
+            
+            else if(PORTCbits.RC3 == 1  //frontal direita
+                 && PORTCbits.RC4 == 0  //frontal esquerda
+                 && PORTEbits.RE1 == 1  //traseiro direita
+                 && PORTEbits.RE2 == 0) //traseiro esquerda
+            {
+                stopMotors();
+                moveMotor(left, forward, 100);
+                __delay_ms(100);
+                stopMotors();
+            }
+            
+            else if(PORTCbits.RC3 == 1   //frontal direita
+                 && PORTCbits.RC4 == 1   //frontal esquerda
+                 && PORTEbits.RE1 == 1   // TODO
+                 && PORTEbits.RE2 == 1)  // TODO
+                {
+                if(PORTAbits.RA0 == 1    //lateral direita
+                && PORTCbits.RC0 == 1    //frontal direita
+                && PORTAbits.RA1 == 1    //central
+                && PORTCbits.RC1 == 1    //frontal esquerda
+                && PORTAbits.RA2 == 1){  //lateral esquerda
+                    //Busca padrao
+                    if(message[2] == 'a'){ // Estrela padrao
+                        moveMotor(right, forward, 70);
+                        moveMotor(left,  forward, 90);
+                    }
+
+                    else if(message[2] == 'b'){ //Estrela lenta
+                        moveMotor(right, forward, 40);
+                        moveMotor(left,  forward, 60);
+                    }
+
+                    else if(message[2] == 'c'){ //pica pau
+                        moveMotor(right, forward, 70);
+                        moveMotor(left,  forward, 90);
+                        delay_ms(100);
+                        stopMotors();
+                        delay_ms(1000);
+                    }
+
+                    else if(message[2] == 'd'){ //varredura
+                        moveMotor(right, backward, 100);
+                        moveMotor(left,  forward,  100);
+                        delay_ms(50);
+
+                        moveMotor(right, forward, 100);
+                        moveMotor(left,  backward,  100);
+                        delay_ms(100);
+
+                        moveMotor(right, backward, 100);
+                        moveMotor(left,  forward,  100);
+                        delay_ms(50);
+
+                        moveMotor(right, forward, 70);
+                        moveMotor(left,  forward, 90);
+                        delay_ms(50);
+                    }
+
+                    else if(message[2] == 'e'){
+                        moveMotor(right, forward, 100);
+                        moveMotor(left, backward, 100);
+                    }
+                }
+                
+                else if(PORTAbits.RA0 == 1
+                     && PORTCbits.RC0 == 1
+                     && PORTAbits.RA1 == 0
+                     && PORTCbits.RC1 == 1
+                     && PORTAbits.RA2 == 1){ //central acionado
+                    //moveMotor(right, forward, 100);
+                    //moveMotor(left,  forward,  100);
+                    
+                    stopMotors();
+                }
+                
+                else if(PORTAbits.RA0 == 1
+                     && PORTCbits.RC0 == 0
+                     && PORTAbits.RA1 == 0
+                     && PORTCbits.RC1 == 1
+                     && PORTAbits.RA2 == 1){ //central e direita
+                    //moveMotor(right, forward, 100);
+                    //moveMotor(left,  forward,  100);
+                    
+                    stopMotors();
+                }
+                
+                else if(PORTAbits.RA0 == 1
+                     && PORTCbits.RC0 == 1
+                     && PORTAbits.RA1 == 0
+                     && PORTCbits.RC1 == 0
+                     && PORTAbits.RA2 == 1){ //central e esquerda
+                    //moveMotor(right, forward, 100);
+                    //moveMotor(left,  forward,  100);
+                    
+                    stopMotors();
+                }
+                
+                else if(PORTAbits.RA0 == 1
+                     && PORTCbits.RC0 == 0
+                     && PORTAbits.RA1 == 0
+                     && PORTCbits.RC1 == 0
+                     && PORTAbits.RA2 == 1){ //tres frontais acioandos
+                    //moveMotor(right, forward, 100);
+                    //moveMotor(left,  forward,  100);
+                    
+                    stopMotors();
+                }
+                
+                else if(PORTAbits.RA0 == 1
+                     && PORTCbits.RC0 == 0
+                     && PORTAbits.RA1 == 1
+                     && PORTCbits.RC1 == 0
+                     && PORTAbits.RA2 == 1){ //dois frontais laterais acionados
+                    //moveMotor(right, forward, 100);
+                    //moveMotor(left,  forward,  100);
+                    
+                    stopMotors();
+                }
+                
+                else if(PORTAbits.RA0 == 0
+                     && PORTCbits.RC0 == 1
+                     && PORTAbits.RA1 == 1
+                     && PORTCbits.RC1 == 1
+                     && PORTAbits.RA2 == 1){ //lateral direita
+                    moveMotor(right, backward, 100);
+                    moveMotor(left,  forward,  100);
+                    __delay_ms(50);
+                }
+                
+                else if(PORTAbits.RA0 == 1
+                     && PORTCbits.RC0 == 0
+                     && PORTAbits.RA1 == 1
+                     && PORTCbits.RC1 == 1
+                     && PORTAbits.RA2 == 1){ //frontal direita
+                    moveMotor(right, backward, 80);
+                    moveMotor(left,  forward,  80);
+                }
+                
+                else if(PORTAbits.RA0 == 1
+                     && PORTCbits.RC0 == 1
+                     && PORTAbits.RA1 == 1
+                     && PORTCbits.RC1 == 1
+                     && PORTAbits.RA2 == 0){ //lateral esquerda
+                    moveMotor(right, forward, 100);
+                    moveMotor(left, backward, 100);
+                    __delay_ms(50);
+                }
+                
+                else if(PORTAbits.RA0 == 1
+                     && PORTCbits.RC0 == 1
+                     && PORTAbits.RA1 == 1
+                     && PORTCbits.RC1 == 0
+                     && PORTAbits.RA2 == 1){ //frontal direita
+                    moveMotor(right, forward, 80);
+                    moveMotor(left, backward, 80);
+                }
+            }
